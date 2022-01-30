@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grid Construction (using percentage and fraction) Flexible columns</title>
+</head>
+<body>
+    <div class="wrapper">
+        <aside>Sidebar</aside>
+        <main>Main</main>
+        <section>Section</section>
+
+    </div>
+    <style>
+        .wrapper{
+display: grid;
+grid-template-columns: 200px 1fr 2fr;
+        }
+        aside,section,main{
+            border: 1px solid;
+        }
+    </style>
+</body>
+</html>

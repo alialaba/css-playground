@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grid Construction (using percentage)</title>
+</head>
+<body>
+    <div class="wrapper">
+<aside>
+    <img alt="Curious-looking dog" src="/course-materials/dog-one-300px.jpg" />
+    sidebar</aside>
+<main>main content</main>
+    </div>
+    <style>
+        .wrapper{
+            display:grid ;
+            grid-template-columns: 25% 75%;
+            /* The number of columns we want our grid to have */
+            /* The individual widths of each column */
+
+        }
+        aside,main{
+            border: 1px solid;
+        }
+    </style>
+</body>
+</html>

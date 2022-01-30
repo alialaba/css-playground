@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Layout Algorithm Logic</title>
+</head>
+<body>
+    <div class="flow-wrapper">
+        <div class="child"></div>
+    </div>
+
+    <div class="flex-wrapper">
+        <div class="child"></div>
+    </div>
+
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .flow-wrapper{
+            /* there is no space for containing block */
+            width: 350px;
+            border: 2px solid;
+            padding: 1rem;
+            
+        }
+        .child{
+            width: 1000px;
+            border:2px solid orange;
+        }
+        .flex-wrapper{
+            
+           /* there is space for containing block */
+            display: flex;
+            width: 350px;
+            border: 2px solid;
+
+            margin-top: 1rem;
+            padding: 1rem;
+        }
+
+    </style>
+    
+</body>
+</html>

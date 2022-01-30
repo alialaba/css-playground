@@ -1,0 +1,96 @@
+In CSS Grid, our element's content box is sliced into rows and columns.
+The rows/columns don't have to be the same size, but they do have to be consistent.
+If a column is 250px wide, each cell in that column will share that width.
+
+CSS Grid doesn't support zig-zag columns like this. Every cell in the same column needs to have the same width.
+The same is true for rows: every cell in the same row needs to have the same height.
+
+We also can't end a row or column prematurely; If our grid has 2 columns and 3 rows, each column will have 3 cells. This sort of thing is illegal:
+Every row needs to have the same number of columns (and vice-versa). We can't have a grid where the first row has 1 column, the second row has 2 columns.
+
+Rows/columns are invisible markers
+Every tangible object in the physical world can be broken down into a complex combination of atoms. A plastic bottle of water might be made up of hydrogen, oxygen, carbon, and sulfur.
+
+Similarly, on the web, every layout can be broken down into a complex combination of divs, spans, sections, headers, buttons, etc.
+
+The web is made up of boxes inside boxes inside boxes. If we were to add a red outline to every DOM node on the page, we expect to see a full representation of that page's structure.
+Example is a table:
+Each tr element creates a new row
+Each th/td element creates a new cell
+All of those th/td elements will align neatly into columns
+
+The thing that makes CSS Grid so powerful is that the grid structure can be selectively ignored. All kinds of cool layouts are made possible by this unique quirk, and we'll be exploring it throughout this module.
+
+Inset grids
+In the examples we've seen so far, 100% of the grid's content space is taken up by rows and columns. Technically, this isn't a requirement for CSS Grid.
+
+Let's suppose that we create a grid with 4 columns that are each 100px wide. If the container is larger than 400px, we'll wind up with some "dead space" at the end:
+
+In practice, we rarely want to take advantage of this feature. It's usually simpler if our grids do span the entire area. I'm mentioning it here just to give you an accurate mental model, not suggesting that you should structure your grids this way.
+
+Progressive enhancement with feature queries
+This is the core idea behind progressive enhancement. We start with a baseline experience that works for everybody and is "good enough", and enhance it to be a better experience for folks on modern browsers.
+
+It's worth remembering that we're already doing this when it comes to responsive design. Folks on a mobile device will have a different experience than folks on a desktop computer. The layout will be different. But as long as they can accomplish the same tasks as the people using desktops, we've succeeded.
+
+Grid auto flow
+So far, all of the grids we've seen have been 1 × 𝓃, where 𝓃 is the number of children. We wind up with a single column and 𝓃 rows.
+
+What if we want to distribute the elements horizontally instead of vertically, though?
+
+We can change the flow direction for implicit grids with the grid-auto-flow property:
+
+Grid Construction
+So we've seen how CSS Grid can implicitly create a grid when we pass it some children. But the real magic with CSS Grid comes from being able to explicitly define our own grids.
+
+Let's start by defining some columns. We do that with the grid-template-columns property:
+Flexible columns
+What if we want our columns to grow if their contents won't otherwise fit?
+
+For that, we have a new fr unit:
+The fr unit brings Flexbox-style flexibility to CSS Grid. You can think of it kinda like flex-grow, except that it's operating on the columns, and not on the actual child elements.
+
+fr stands for “fraction”. In this example, we're saying that the first column should take up 1 "unit" of space, and the second column should take up 2 "units". There are 3 units total, so the first column is 1/3rd, the second column is 2/3rds.
+
+Like flex-grow, the fr unit is flexible. In this example, our first column wants to take up 1/3rd of the available space, but its child is too wide, so it grows to accommodate it.
+
+This behaviour only happens with the fr unit (as well as auto). Pixels, rems, and percentages are all hard limits.
+
+The other thing to note about fr is that it distributes available space. Consider this situation:
+
+Implicit rows
+CSS Grid is a two-dimensional layout mode. Let's start working in two dimensions!.
+mplicit rows are handy when we're rendering based on some data, like a search results page. We can toss a bunch of items into our grid and trust that each row will be the right size for the content.
+
+But what if we want to control the heights of each row?
+
+Explicit rows
+When creating whole layouts in CSS Grid, it's common to give each row an explicit height. We can do this with the grid-template-rows property.
+We've created three rows: a 64px-tall header, a 100px-tall footer, and a main content area that fills the remaining space.
+
+Note that in order for the grid to fill the page, we've had to use the min-height percentage trick from Module 1. We could also set min-height: 100vh, but it's not quite as mobile-friendly.
+
+Out-of-bounds items
+Let's imagine we create an explicit CSS Grid with 1 column and 3 rows. By default, each child will be assigned to its own cell.
+
+What happens if we include more than 3 children?
+In this example, we've only declared 3 rows, but added 4 children, so the browser creates a 4th row and squeezes it in. It doesn't cause an overflow, it just means that there's less available space for the other elements.
+
+It's a bit misleading to think about “implicit grids” and “explicit grids”. It's more accurate to say that individual rows / columns can be implicit or explicit. An “explicit grid” can still generate implicit columns or rows if we add additional children.
+
+Gaps
+As with Flexbox, we can build gutters into our grid with the gap property:
+
+What if we only want there to be a gap between rows, and not between columns? We can specify two values, one for each direction:
+gap is a relatively modern feature, though it's grown to be quite well-supported in modern browsers. If you need to support Internet Explorer, you should use the grid-gap property instead. The two properties can be used interchangeably.
+
+The “repeat” function
+Let's suppose we're building a weekly planner / agenda application.
+
+This is fine, but it's an annoying bit of friction. It's also harder to tell at a glance exactly how many columns there are.
+
+Fortunately, CSS Grid introduces a function that makes life a little bit easier:
+
+We're saying that we should repeat the 1fr value 5 times. The end result is the same, but it's easier to read.
+
+This is most commonly used with the fr unit, but it doesn't have to be! We can use any unit, like repeat(4, 200px)
